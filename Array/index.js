@@ -36,6 +36,8 @@ class MyArray {
     } else {
       //temp untuk menyimpan data index ke-0
       let temp = this.data[0];
+
+      //menggeser tiap index i ke kanan
       for (let item = 0; item < this.length; item++) {
         let temp2 = this.data[item + 1];
         this.data[item + 1] = temp;
