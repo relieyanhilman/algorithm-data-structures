@@ -32,3 +32,5 @@ function maxSubArray(nums) {
 }
 
 console.log(maxSubArray([-2, -1]));
+
+//[LOGIC SUM MAXSUM PATTERN]

@@ -38,3 +38,6 @@ function twoSumRev(nums, target) {
 }
 
 console.log(twoSumRev([2, 7, 11, 15], 9));
+
+
+//[HASHMAP AS CONTAINER PATTERN]
