@@ -1,8 +1,9 @@
-class LinkedList {
+class DoublyLinkedList {
   constructor(value) {
     this.head = {
       value: value,
       next: null,
+      prev: null,
     };
     this.tail = this.head;
     this.length = 1;
@@ -43,8 +44,9 @@ class LinkedList {
     let prev = this.traverseToIndex(index);
     let after = prev.next;
     newNode.next = after;
+    newNode.prev = prev;
     prev.next = newNode;
-
+    after.prev = newNode;
     this.length++;
     return this;
   }
@@ -52,6 +54,7 @@ class LinkedList {
   append(value) {
     let newNode = new Node(value);
     this.tail.next = newNode;
+    newNode.prev = this.tail;
     this.tail = newNode;
     this.length++;
     return this;
@@ -70,6 +73,7 @@ class LinkedList {
     if (index == 0) {
       after = this.head.next;
       this.head = after;
+      this.head.prev = null;
       this.length--;
       return this;
     }
@@ -77,6 +81,7 @@ class LinkedList {
     let prev = this.traverseToIndex(index);
     after = prev.next.next;
     prev.next = after;
+    after.prev = prev;
     if (index == this.length - 1) {
       this.tail = prev;
     }
@@ -85,17 +90,17 @@ class LinkedList {
   }
 
   reverse() {
-    let nextToInitiate = null;
+    let temp2 = this.tail;
+    this.tail = this.head;
+    this.head = temp2;
+
     let currentNode = this.head;
     while (currentNode !== null) {
-      let temp = currentNode.next;
-      currentNode.next = nextToInitiate;
-      nextToInitiate = currentNode;
-      currentNode = temp;
+      let tempPrev = currentNode.next;
+      currentNode.next = currentNode.prev;
+      currentNode.prev = tempPrev;
+      currentNode = currentNode.next;
     }
-    let temp2 = this.head;
-    this.head = this.tail;
-    this.tail = temp2;
     return this;
   }
 }
@@ -104,10 +109,11 @@ class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
+    this.prev = null;
   }
 }
 
-let linkedListUhuy = new LinkedList(6000);
+let linkedListUhuy = new DoublyLinkedList(6000);
 linkedListUhuy.insert(1, 7000);
 linkedListUhuy.insert(2, 8000);
 linkedListUhuy.insert(1, 10);
@@ -122,3 +128,4 @@ console.log("AFTER", linkedListUhuy.printList());
 linkedListUhuy.reverse();
 
 console.log("AFTER REVERSE", linkedListUhuy.printList());
+console.log(linkedListUhuy);
